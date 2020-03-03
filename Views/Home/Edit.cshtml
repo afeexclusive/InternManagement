@@ -1,0 +1,276 @@
+﻿@model EmployeeEditViewModel
+
+@{
+    ViewBag.Title = "Edit Dev";
+    var photopath = "~/img/" + (Model.fotopath ?? "guy.jpg");
+
+}
+
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard <small>Manage Student</small></h1>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown create">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Create
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a asp-controller="home" asp-action="create" class="nav-link">Student</a></li>
+                        <li><a href="#">Add More Details</a></li>
+                        @*<li><a href="#">Add User</a></li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">Dashboard</li>
+        </ol>
+    </div>
+</section>
+
+<section id="main">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="index.html" class="list-group-item active main-color-bg">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+                        </a>
+
+                        <a asp-controller="home" asp-action="index" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Student</a>
+                        <a href="posts.html" class="list-group-item"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Pages <span class="badge">2</span></a>
+                        <a href="users.html" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users <span class="badge">203</span></a>
+                    </div>
+
+                    <div class="well">
+                        <h4>Disk Space Used</h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                60%
+                            </div>
+                        </div>
+                        <h4>Bandwidth Used </h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                40%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- Website Overview -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading main-color-bg">
+                            <h3 class="panel-title">Website Overview</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="well card">
+                                        <h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 3</h2>
+                                        <h4>Users</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="well dash-box">
+                                        <h2><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 2</h2>
+                                        <h4>Pages</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="well dash-box">
+                                        <h2><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 33</h2>
+                                        <h4>Posts</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="well dash-box">
+                                        <h2><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 12,334</h2>
+                                        <h4>Visitors</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-8  contentCenter">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="card card-body">
+                                        <form enctype="multipart/form-data" asp-controller="Home" asp-action="Edit" method="post" class="">
+                                            <input hidden asp-for="Id" />
+                                            <input hidden asp-for="fotopath" />
+                                            <div class="form-group">
+                                                <label asp-for="FirstName" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="FirstName" class="form-control" />
+                                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="LastName" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="LastName" class="form-control" />
+                                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="OtherName" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="OtherName" class="form-control" />
+                                                    <span asp-validation-for="OtherName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Email" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="Email" class="form-control" />
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Identification" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="Identification" class="form-control" />
+                                                    <span asp-validation-for="Identification" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label asp-for="PhoneNumber" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="PhoneNumber" class="form-control" />
+                                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="DateOfBirth" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="DateOfBirth" class="form-control" type="date" />
+                                                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Address" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="Address" class="form-control" />
+                                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="AdmissionBatch" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <select asp-for="AdmissionBatch" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.Batch>();">
+                                                        <option>Please Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="AdmissionBatch" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="AdmissionType" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <select asp-for="AdmissionType" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.AddmissionType>();">
+                                                        <option>Please Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="AdmissionType" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Nationalty" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <select asp-for="Nationalty" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.Nationality>();">
+                                                        <option>Please Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="Nationalty" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="MaritalStatus" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <select asp-for="MaritalStatus" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.Marital>();">
+                                                        <option>Please Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Gender" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <select asp-for="Gender" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.Gender>();">
+                                                        <option>Please Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Status" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <select asp-for="Status" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.Status>();">
+                                                        <option>Please Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <img class="card-img-top imageThumbnail" src="@photopath" asp-append-version="true" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label asp-for="Photo" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <div class="custom-file">
+                                                        <input asp-for="Photo" class="form-control custom-file-input" />
+                                                        <label class="custom-control-label">Choose File...</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="HealthCondition" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="HealthCondition" class="form-control" />
+                                                    <span asp-validation-for="HealthCondition" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="NextOFKinName" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="NextOFKinName" class="form-control" />
+                                                    <span asp-validation-for="NextOFKinName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="NextOfKinNumber" class=" col-form-label"></label>
+                                                <div class="">
+                                                    <input asp-for="NextOfKinNumber" class="form-control" />
+                                                    <span asp-validation-for="NextOfKinNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="m-4">
+                                                <button type="submit" class=" btn btn-primary">Update</button>
+                                                <a asp-action="index" asp-controller="Home" class="btn btn-primary">Cancel</a>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
