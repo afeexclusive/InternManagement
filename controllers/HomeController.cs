@@ -17,22 +17,25 @@ namespace EmployeeManagment.controllers
     public class HomeController : Controller
     {
         private readonly IEmployeeReprository _employeeReprository;
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<IdentityUser> userManager;
         private readonly IGuarantorRepo _guarantor;
+        private readonly IPayment _payment;
 
         public HomeController(IEmployeeReprository employeeReprository,
-                                IHostingEnvironment hostingEnvironment,
+                                IWebHostEnvironment hostingEnvironment,
                                 RoleManager<IdentityRole> roleManager,
                                 UserManager<IdentityUser> userManager,
-                                IGuarantorRepo guarantor)
+                                IGuarantorRepo guarantor,
+                                IPayment payment)
         {
             _employeeReprository = employeeReprository;
             this.hostingEnvironment = hostingEnvironment;
             this.roleManager = roleManager;
             this.userManager = userManager;
             this._guarantor = guarantor;
+            this._payment = payment;
         }
 
         [Route("")]
@@ -64,12 +67,45 @@ namespace EmployeeManagment.controllers
         //}
 
 
+        public double BalancePayment(List<Payment>payments, Employee std)
+        {
+            
+            double TotalPaid = 0;
+            foreach (var payment in payments)
+            {
+                TotalPaid = TotalPaid + payment.AmouontPaid;
+            }
+
+            if (std.AdmissionType == 0)
+            {
+                double TotalPackage = 350000;
+                double Balance = TotalPackage - TotalPaid;
+                return Balance;
+            }
+            else
+            {
+                double TotalPackage = 1000000;
+                double Balance = TotalPackage - TotalPaid;
+                return Balance;
+            }
+
+            
+            
+        }
+
+       
+
         [Route("{id?}")]
         [AllowAnonymous]
         public ViewResult Details(int? Id)
         {
+
             Employee employeeTest = _employeeReprository.GetEmployee(Id.Value);
             List<Guarantor> guarantorcollect = _guarantor.GetSpecifiedGuarantor(Id.Value).ToList();
+            List<Payment> paymentcollect = _payment.GetSpecifiedPayment(Id.Value).ToList();
+
+            double Balancepay = BalancePayment(paymentcollect, employeeTest);
+            
             if (employeeTest == null)
             {
                 Response.StatusCode = 404;
@@ -79,6 +115,8 @@ namespace EmployeeManagment.controllers
             {
                 employee = employeeTest,
                 Guarantor = guarantorcollect,
+                Payment = paymentcollect,
+                Balance = Balancepay,
                 PageTitle = "Developer Details"
 
             };
@@ -105,7 +143,7 @@ namespace EmployeeManagment.controllers
                 Employee NewEmployee = new Employee
                 {
                     //Id = maxi,
-                    systemId = Guid.NewGuid(),
+                    
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     OtherName = model.OtherName,
@@ -125,7 +163,7 @@ namespace EmployeeManagment.controllers
                     NextOfKinNumber = model.NextOfKinNumber,
                 };
                 _employeeReprository.Add(NewEmployee);
-                return RedirectToAction("details", new { id = NewEmployee.Id });
+                return RedirectToAction("details", new { id = NewEmployee.EmployeeId });
             }
             return View();
         }
@@ -167,7 +205,7 @@ namespace EmployeeManagment.controllers
             Employee employee = _employeeReprository.GetEmployee(id);
             EmployeeEditViewModel employeeEditViewModel = new EmployeeEditViewModel()
             {
-                Id = employee.Id,
+                Id = employee.EmployeeId,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
                 OtherName = employee.OtherName,

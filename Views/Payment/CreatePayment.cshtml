@@ -1,0 +1,55 @@
+﻿@model CreatePaymentViewModel
+
+@{
+    ViewBag.Title = "Create Dev Payment";
+
+}
+
+
+
+<div class="panel panel-default ">
+    <div class="panel-body">
+        <div class="align-content-center">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <form enctype="multipart/form-data" asp-controller="Payment" asp-action="CreatePayment" method="post" class="mt-3 mx-auto col-sm-4 p-1">
+
+                <input asp-for="EmployeeId" value="@Model.EmployeeId" hidden />
+
+                <div class="form-group row">
+                    <label asp-for="StudentName" class="col-sm-3 col-form-label"> @Model.StudentName </label>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="AmouontPaid" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="AmouontPaid" class="form-control" />
+                        <span asp-validation-for="AmouontPaid" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label asp-for="PaymentMethod" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <select asp-for="PaymentMethod" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList<Selector.PayMethod>();">
+                            <option>Please Select</option>
+                        </select>
+                        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                    </div>
+                </div>
+               
+                <div class="form-group row">
+                    <label asp-for="PaymentDate" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="PaymentDate" type="date" class="form-control" />
+                        <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="m-4">
+                    <button type="submit" class=" btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

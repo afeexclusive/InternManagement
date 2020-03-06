@@ -121,7 +121,7 @@
 
                                             <div class="card-body text-center">
                                                 <img class="card-img-top imageThumbnail" src="@photopath" asp-append-version="true" />
-                                                <h4> Employee ID: @Model.employee.Id </h4>
+                                                <h4> Employee ID: @Model.employee.EmployeeId </h4>
                                                 <a href="#moredetails" class="btn btn-outline-primary">More Details</a>
                                             </div>
 
@@ -132,49 +132,52 @@
                                                         <th>Email</th>
                                                         <th>Phone</th>
                                                         <th>Details</th>
-                                                        
+
                                                     </tr>
                                                     @foreach (var guarant in Model.Guarantor)
                                                     {
-                                                        
+
                                                         <tr>
                                                             <td> @guarant.Name</td>
                                                             <td> @guarant.Email</td>
                                                             <td> @guarant.HomePhone | @guarant.OfficePhone</td>
                                                             @*<td>
-                                                                <a asp-controller="Guarantor" asp-action="details" asp-route-id="@guarant.Id" class=" text-center m-1 glyphicon glyphicon-eye-close"></a>
-                                                                <a type="button" data-target=".deleteGuarant-@guarant.Id" data-toggle="modal" class=" text-center m-1 glyphicon glyphicon-remove "></a>
-                                                                <a asp-controller="guarantor" asp-action="edit" asp-route-id="@guarant.Id" class=" text-center m-1 glyphicon glyphicon-pencil "></a>
-                                                                <a asp-controller="guarantor" asp-action="create" asp-route-id="@guarant.Id" class="text-center m-1 glyphicon glyphicon-plus-sign"> </a>
-                                                            </td>*@
+                            <a asp-controller="Guarantor" asp-action="details" asp-route-id="@guarant.Id" class=" text-center m-1 glyphicon glyphicon-eye-close"></a>
+                            <a type="button" data-target=".deleteGuarant-@guarant.Id" data-toggle="modal" class=" text-center m-1 glyphicon glyphicon-remove "></a>
+                            <a asp-controller="guarantor" asp-action="edit" asp-route-id="@guarant.Id" class=" text-center m-1 glyphicon glyphicon-pencil "></a>
+                            <a asp-controller="guarantor" asp-action="create" asp-route-id="@guarant.Id" class="text-center m-1 glyphicon glyphicon-plus-sign"> </a>
+                        </td>*@
                                                         </tr>
 
-                                                        //delete modal
-                                                        <div class="modal fade deleteStudent-@guarant.Id" tabindex="-1" role="dialog" aria-labelledby="addPage" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                        <h3 class="modal-title text-danger text-center" id="exampleModalLabel">Delete Warning</h3>
-                                                                    </div>
 
-                                                                    <div class="container">
-                                                                        <h2>Do you which to delete @FullName ?</h2>
-                                                                        <p>
-                                                                            <a asp-controller="home" asp-action="delete" asp-route-id="@guarant.Id" class="btn btn-danger">Yes</a>
-                                                                            <a class="btn btn-primary close" data-dismiss="modal" aria-label="Close">No</a>
-                                                                        </p>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     }
 
                                                 </table>
 
+                                            </div>
+
+                                            <div class="row">
+                                                <table class="table table-striped table-hover p-2" id="dataTable">
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>Details</th>
+
+                                                    </tr>
+                                                    @foreach (var payme in Model.Payment)
+                                                    {
+                                                        <tr>
+                                                            <td> @payme.PaymentId</td>
+                                                            <td> @payme.PaymentMethod</td>
+                                                            <td> @payme.AmouontPaid</td>
+                                                            <td> @payme.PaymentDate</td>
+
+                                                        </tr>
+                                                    }
+
+                                                </table>
+                                                <div> @Model.Balance</div>
                                             </div>
 
                                             <div id="moredetails">
@@ -193,8 +196,8 @@
 
                                             <div class="card-footer text-center">
                                                 <a asp-controller="home" asp-action="index" class="btn btn-dark">Back</a>
-                                                <a asp-controller="home" asp-action="edit" asp-route-id="@Model.employee.Id" class="btn btn-primary">Edit</a>
-                                                <a asp-controller="guarantor" asp-action="create" asp-route-id="@Model.employee.Id" class="btn btn-primary">Add Guarantor</a>
+                                                <a asp-controller="home" asp-action="edit" asp-route-id="@Model.employee.EmployeeId" class="btn btn-primary">Edit</a>
+                                                <a asp-controller="guarantor" asp-action="create" asp-route-id="@Model.employee.EmployeeId" class="btn btn-primary">Add Guarantor</a>
                                             </div>
                                         </div>
                                     </div>

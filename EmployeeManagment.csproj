@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200220150018_GuidMigration.cs" />
-    <Compile Remove="Migrations\20200220150018_GuidMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200306020838_ResolveInitial.cs" />
+    <Compile Remove="Migrations\20200306020838_ResolveInitial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,5 +17,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>  
 </Project>

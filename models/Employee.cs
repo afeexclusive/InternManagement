@@ -10,8 +10,7 @@ namespace EmployeeManagment.models
     public class Employee
     {
 
-        public int Id { get; set; }
-        public Guid systemId { get; set; }
+        public int EmployeeId { get; set; }
         //[Required]
         //[MaxLength(50, ErrorMessage = "Name cannot Exceed 50 characters")]
         public string FirstName { get; set; }
@@ -59,7 +58,8 @@ namespace EmployeeManagment.models
         public List<StudentInBatch> BatchesIn { get; set; }
         public List<Guarantor> Guarantors { get; set; }
         public List<Payment> Payments { get; set; }
-        public List<Employment> Employments { get; set; }
+        public List<Salary> Salaries { get; set; }
+        public List<EmployeeCompany> EmployeeCompany { get; set; }
 
     }
 }

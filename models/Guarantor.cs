@@ -7,9 +7,8 @@ namespace EmployeeManagment.models
 {
     public class Guarantor
     {
-        public int Id { get; set; }
-        public Guid GuarantId { get; set; }
-        public int studentId { get; set; }
+        public int GuarantorId { get; set; }
+        public int EmployeeId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string HomePhone { get; set; }

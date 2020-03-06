@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmployeeManagment.Migrations
 {
-    public partial class IntialPlusIdentityUser : Migration
+    public partial class UntoInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,16 +11,15 @@ namespace EmployeeManagment.Migrations
                 name: "AcademyPrograms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    AcademyProgramId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProgSystemId = table.Column<Guid>(nullable: false),
                     Cost = table.Column<double>(nullable: false),
                     ProgramName = table.Column<int>(nullable: false),
                     Duration = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AcademyPrograms", x => x.Id);
+                    table.PrimaryKey("PK_AcademyPrograms", x => x.AcademyProgramId);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,10 +62,27 @@ namespace EmployeeManagment.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Companys",
+                columns: table => new
+                {
+                    CompanyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    ContactName = table.Column<string>(nullable: true),
+                    ContactEmail = table.Column<string>(nullable: true),
+                    ContactPhone = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companys", x => x.CompanyId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    CoursesId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Course_Name = table.Column<int>(nullable: false),
                     Level = table.Column<int>(nullable: false),
@@ -74,16 +90,15 @@ namespace EmployeeManagment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.PrimaryKey("PK_Courses", x => x.CoursesId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    systemId = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     OtherName = table.Column<string>(nullable: true),
@@ -108,14 +123,14 @@ namespace EmployeeManagment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Batches",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    BatchesId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AcademyProgramId = table.Column<int>(nullable: false),
                     Name = table.Column<int>(nullable: false),
@@ -126,12 +141,12 @@ namespace EmployeeManagment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Batches", x => x.Id);
+                    table.PrimaryKey("PK_Batches", x => x.BatchesId);
                     table.ForeignKey(
                         name: "FK_Batches_AcademyPrograms_AcademyProgramId",
                         column: x => x.AcademyProgramId,
                         principalTable: "AcademyPrograms",
-                        principalColumn: "Id",
+                        principalColumn: "AcademyProgramId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -246,22 +261,46 @@ namespace EmployeeManagment.Migrations
                 columns: table => new
                 {
                     AcademyProgramId = table.Column<int>(nullable: false),
-                    CourseId = table.Column<int>(nullable: false)
+                    CoursesId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProgramCourses", x => new { x.AcademyProgramId, x.CourseId });
+                    table.PrimaryKey("PK_ProgramCourses", x => new { x.AcademyProgramId, x.CoursesId });
                     table.ForeignKey(
                         name: "FK_ProgramCourses_AcademyPrograms_AcademyProgramId",
                         column: x => x.AcademyProgramId,
                         principalTable: "AcademyPrograms",
-                        principalColumn: "Id",
+                        principalColumn: "AcademyProgramId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProgramCourses_Courses_CourseId",
-                        column: x => x.CourseId,
+                        name: "FK_ProgramCourses_Courses_CoursesId",
+                        column: x => x.CoursesId,
                         principalTable: "Courses",
-                        principalColumn: "Id",
+                        principalColumn: "CoursesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeCompany",
+                columns: table => new
+                {
+                    CompanyId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeCompany", x => new { x.CompanyId, x.EmployeeId });
+                    table.ForeignKey(
+                        name: "FK_EmployeeCompany_Companys_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companys",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeCompany_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -269,10 +308,9 @@ namespace EmployeeManagment.Migrations
                 name: "Guarantors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    GuarantorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GuarantId = table.Column<Guid>(nullable: false),
-                    studentId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     HomePhone = table.Column<string>(nullable: true),
@@ -284,12 +322,34 @@ namespace EmployeeManagment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Guarantors", x => x.Id);
+                    table.PrimaryKey("PK_Guarantors", x => x.GuarantorId);
                     table.ForeignKey(
-                        name: "FK_Guarantors_Employees_studentId",
-                        column: x => x.studentId,
+                        name: "FK_Guarantors_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    PaymentId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    AmouontPaid = table.Column<double>(nullable: false),
+                    PaymentMethod = table.Column<int>(nullable: false),
+                    PaymentDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.PaymentId);
+                    table.ForeignKey(
+                        name: "FK_Payments_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -297,48 +357,69 @@ namespace EmployeeManagment.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ProjectId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Student_Id = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
                     Project_Status = table.Column<int>(nullable: false),
-                    ProjectUrl = table.Column<string>(nullable: true),
-                    StudentId = table.Column<int>(nullable: true)
+                    ProjectUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
                     table.ForeignKey(
-                        name: "FK_Projects_Employees_StudentId",
-                        column: x => x.StudentId,
+                        name: "FK_Projects_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Salaries",
+                columns: table => new
+                {
+                    SalaryId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    Role = table.Column<string>(nullable: true),
+                    Amount = table.Column<double>(nullable: false),
+                    PayDay = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Salaries", x => x.SalaryId);
+                    table.ForeignKey(
+                        name: "FK_Salaries_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "StudentsInBatches",
                 columns: table => new
                 {
-                    StudentId = table.Column<int>(nullable: false),
-                    BatchId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    BatchesId = table.Column<int>(nullable: false),
                     StdStatus = table.Column<int>(nullable: false),
                     StdGrade = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentsInBatches", x => new { x.StudentId, x.BatchId });
+                    table.PrimaryKey("PK_StudentsInBatches", x => new { x.EmployeeId, x.BatchesId });
                     table.ForeignKey(
-                        name: "FK_StudentsInBatches_Batches_BatchId",
-                        column: x => x.BatchId,
+                        name: "FK_StudentsInBatches_Batches_BatchesId",
+                        column: x => x.BatchesId,
                         principalTable: "Batches",
-                        principalColumn: "Id",
+                        principalColumn: "BatchesId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentsInBatches_Employees_StudentId",
-                        column: x => x.StudentId,
+                        name: "FK_StudentsInBatches_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id",
+                        principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -387,24 +468,39 @@ namespace EmployeeManagment.Migrations
                 column: "AcademyProgramId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Guarantors_studentId",
+                name: "IX_EmployeeCompany_EmployeeId",
+                table: "EmployeeCompany",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Guarantors_EmployeeId",
                 table: "Guarantors",
-                column: "studentId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProgramCourses_CourseId",
+                name: "IX_Payments_EmployeeId",
+                table: "Payments",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProgramCourses_CoursesId",
                 table: "ProgramCourses",
-                column: "CourseId");
+                column: "CoursesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_StudentId",
+                name: "IX_Projects_EmployeeId",
                 table: "Projects",
-                column: "StudentId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentsInBatches_BatchId",
+                name: "IX_Salaries_EmployeeId",
+                table: "Salaries",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentsInBatches_BatchesId",
                 table: "StudentsInBatches",
-                column: "BatchId");
+                column: "BatchesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -425,13 +521,22 @@ namespace EmployeeManagment.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "EmployeeCompany");
+
+            migrationBuilder.DropTable(
                 name: "Guarantors");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "ProgramCourses");
 
             migrationBuilder.DropTable(
                 name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "Salaries");
 
             migrationBuilder.DropTable(
                 name: "StudentsInBatches");
@@ -441,6 +546,9 @@ namespace EmployeeManagment.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Companys");
 
             migrationBuilder.DropTable(
                 name: "Courses");

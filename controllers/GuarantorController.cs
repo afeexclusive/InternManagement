@@ -16,14 +16,14 @@ namespace EmployeeManagment.controllers
     { 
         private readonly IGuarantorRepo _guarantorRepo;
         private readonly IEmployeeReprository _employeeReprository;
-        private readonly IHostingEnvironment hostingEnv;
+        private readonly IWebHostEnvironment hostingEnv;
 
         
 
        
  
 
-        public GuarantorController(IGuarantorRepo guarantorRepo, IEmployeeReprository employeeReprository, IHostingEnvironment hostingEnv)
+        public GuarantorController(IGuarantorRepo guarantorRepo, IEmployeeReprository employeeReprository, IWebHostEnvironment hostingEnv)
         {
             _guarantorRepo = guarantorRepo;
             _employeeReprository = employeeReprository;
@@ -90,9 +90,9 @@ namespace EmployeeManagment.controllers
 
                 Guarantor Newguarantor = new Guarantor
                 {
-                    GuarantId = Guid.NewGuid(),
+                   
                     //id = maxi,
-                    studentId = model.studentId,
+                    EmployeeId = model.studentId,
                     Name = model.Name,
                     Email = model.Email,
                     HomePhone = model.HomePhone,

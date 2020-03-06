@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj": {}
+    "C:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj": {}
   },
   "projects": {
-    "c:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj": {
+    "C:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj",
+        "projectUniqueName": "C:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj",
         "projectName": "EmployeeManagment",
-        "projectPath": "c:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj",
+        "projectPath": "C:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj",
         "packagesPath": "C:\\Users\\afe kunle\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\afe kunle\\EmployeeManagment\\obj\\",
+        "outputPath": "C:\\Users\\afe kunle\\EmployeeManagment\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\afe kunle\\AppData\\Roaming\\NuGet\\NuGet.Config",

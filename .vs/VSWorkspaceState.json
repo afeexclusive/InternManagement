@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Migrations",
     "\\Views",
     "\\Views\\Administration",
     "\\Views\\Shared"

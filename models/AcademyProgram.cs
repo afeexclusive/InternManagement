@@ -10,8 +10,7 @@ namespace EmployeeManagment.models
 {
     public class AcademyProgram
     {
-        public int Id { get; set; }
-        public Guid ProgSystemId { get; set; }
+        public int AcademyProgramId { get; set; }
         public double Cost { get; set; }
         public ProgrammeNames ProgramName { get; set; }
         public List<Batches> Batch { get; set; }

@@ -40,9 +40,10 @@ namespace EmployeeManagment
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlSerializerFormatters();
 
-            services.AddTransient<SampleUserRoleData>();
+            ////services.AddTransient<SampleUserRoleData>();
             services.AddScoped<IEmployeeReprository,  SQLEmployeeRepository>();
             services.AddScoped<IGuarantorRepo, SQLEmployeeRepository>();
+            services.AddScoped<IManageEmployment, SQLEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,18 +79,18 @@ namespace EmployeeManagment
                 endpoints.MapControllerRoute("default", "{controller}/{action}");
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/secondfirst", async context =>
-                {
-                    await context.Response.WriteAsync("second middle ware");
-                });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/secondfirst", async context =>
+            //    {
+            //        await context.Response.WriteAsync("second middle ware");
+            //    });
 
-                endpoints.MapGet("/secondsecond", async context =>
-                {
-                    await context.Response.WriteAsync("second endpoint though in the second middleware");
-                });
-            });
+            //    endpoints.MapGet("/secondsecond", async context =>
+            //    {
+            //        await context.Response.WriteAsync("second endpoint though in the second middleware");
+            //    });
+            //});
 
             //app.Use(async (context, next) =>
             //{

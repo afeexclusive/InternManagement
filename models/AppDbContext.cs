@@ -24,8 +24,8 @@ namespace EmployeeManagment.models
         public DbSet<Courses> Courses { get; set; }
         public DbSet<ProgramCourses> ProgramCourses { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<Company> Company { get; set; }
-        public DbSet<Employment> Employments { get; set; }
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<EmployeeCompany> EmployeeCompany { get; set; }
         public DbSet<Salary> Salaries { get; set; }
 
 
@@ -39,56 +39,57 @@ namespace EmployeeManagment.models
 
             // Fluent API Relationships
 
-            // ManyToMany(AcademyProgram and Courses)
+            // -----------------------------------------------ManyToMany(AcademyProgram and Courses)
             modelBuilder.Entity<ProgramCourses>()
-                .HasKey(p => new {p.AcademyProgramId, p.CourseId });
+                .HasKey(p => new {p.AcademyProgramId, p.CoursesId });
 
-            modelBuilder.Entity<ProgramCourses>()
-                .HasOne(pc => pc.Programme)
-                .WithMany(ap => ap.ProgrammeCourses)
-                .HasForeignKey(pc => pc.AcademyProgramId);
+            //modelBuilder.Entity<ProgramCourses>()
+            //    .HasOne(pc => pc.Programme)
+            //    .WithMany(ap => ap.ProgrammeCourses)
+            //    .HasForeignKey(pc => pc.AcademyProgramId);
 
-            modelBuilder.Entity<ProgramCourses>()
-                .HasOne(pc => pc.Course)
-                .WithMany(c => c.Programmes)
-                .HasForeignKey(pc => pc.CourseId);
+            //modelBuilder.Entity<ProgramCourses>()
+            //    .HasOne(pc => pc.Course)
+            //    .WithMany(c => c.Programmes)
+            //    .HasForeignKey(pc => pc.CoursesId);
 
-            // ManyToMany(Student and Batch)
+            // -----------------------------------------------ManyToMany(Student and Batch)
             modelBuilder.Entity<StudentInBatch>()
-                .HasKey(s => new {s.StudentId, s.BatchId });
+                .HasKey(s => new {s.EmployeeId, s.BatchesId });
 
-            modelBuilder.Entity<StudentInBatch>()
-                .HasOne(sb => sb.Student)
-                .WithMany(s => s.BatchesIn)
-                .HasForeignKey(sb => sb.StudentId);
+            //modelBuilder.Entity<StudentInBatch>()
+            //    .HasOne(sb => sb.Student)
+            //    .WithMany(s => s.BatchesIn)
+            //    .HasForeignKey(sb => sb.StudentId);
 
-            modelBuilder.Entity<StudentInBatch>()
-                .HasOne(sb => sb.Batch)
-                .WithMany(b => b.StudentsIn)
-                .HasForeignKey(sb => sb.BatchId);
+            //modelBuilder.Entity<StudentInBatch>()
+            //    .HasOne(sb => sb.Batch)
+            //    .WithMany(b => b.StudentsIn)
+            //    .HasForeignKey(sb => sb.BatchId);
 
-            // OneToMany(Student and Projects)
-            modelBuilder.Entity<Project>()
-                .HasOne(p => p.Student)
-                .WithMany(s => s.Projects);
+            // ------------------------------------------OneToMany(Student and Projects)
+            //modelBuilder.Entity<Project>()
+            //    .HasOne(p => p.Student)
+            //    .WithMany(s => s.Projects);
 
-            // OneToMany(Student and Guarantor)
-            modelBuilder.Entity<Guarantor>()
-                .HasOne(g => g.Student)
-                .WithMany(s => s.Guarantors);
+            //----------------------------------------- OneToMany(Student and Guarantor)
+            //modelBuilder.Entity<Guarantor>()
+            //    .HasOne(g => g.Student)
+            //    .WithMany(s => s.Guarantors);
 
-            // ManyToMany(Student and Company)
-            modelBuilder.Entity<Employment>()
-                .HasKey(k => new { k.StudentId, k.CompanyId });
+            // --------------------------------------------ManyToMany(Student and Company)
+            modelBuilder.Entity<EmployeeCompany>()
+                .HasKey(k => new { k.CompanyId, k.EmployeeId});
 
-            modelBuilder.Entity<Employment>()
-                .HasOne(e => e.Student)
-                .WithMany(s => s.Employments)
-                .HasForeignKey(e => e.StudentId);
-            modelBuilder.Entity<Employment>()
-                .HasOne(e => e.Company)
-                .WithMany(c => c.Employments)
-                .HasForeignKey(e => e.CompanyId);
+           // modelBuilder.Entity<EmployeeCompany>()
+               //.HasOne(e => e.Company)
+               //.WithMany(c => c.EmployeeCompany);
+               //.HasForeignKey(e => e.CompanyId);
+
+            //.Entity<EmployeeCompany>()
+               // .HasOne(e => e.Employee)
+                //.WithMany(s => s.EmployeeCompany);
+                //.HasForeignKey(e => e.EmployeeId);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace EmployeeManagment.models
 {
     public class Courses
     {
-        public int Id { get; set; }
+        public int CoursesId { get; set; }
         public CourseName Course_Name { get; set; }
         public CourseLevel Level { get; set; }
         public double Cost { get; set; }

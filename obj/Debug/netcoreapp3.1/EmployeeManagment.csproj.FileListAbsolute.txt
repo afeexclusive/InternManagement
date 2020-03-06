@@ -146,4 +146,7 @@ c:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Adminis
 C:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUsersInRole.cshtml.g.cs
 c:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Account\AccessDenied.cshtml.g.cs
 C:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Employment\CreateCompany.cshtml.g.cs
+C:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Employment\CreateEmployment.cshtml.g.cs
 C:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\EmployeeManagment.csprojAssemblyReference.cache
+c:\Users\afe kunle\EmployeeManagment\obj\Debug\netcoreapp3.1\Razor\Views\Payment\CreatePayment.cshtml.g.cs

@@ -21,7 +21,7 @@ namespace EmployeeManagment.Migrations
 
             modelBuilder.Entity("EmployeeManagment.models.AcademyProgram", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AcademyProgramId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -32,20 +32,17 @@ namespace EmployeeManagment.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ProgSystemId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("ProgramName")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AcademyProgramId");
 
                     b.ToTable("AcademyPrograms");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Batches", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BatchesId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -68,7 +65,7 @@ namespace EmployeeManagment.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("BatchesId");
 
                     b.HasIndex("AcademyProgramId");
 
@@ -77,7 +74,7 @@ namespace EmployeeManagment.Migrations
 
             modelBuilder.Entity("EmployeeManagment.models.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CompanyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -97,14 +94,14 @@ namespace EmployeeManagment.Migrations
                     b.Property<string>("ContactPhone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CompanyId");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companys");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Courses", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CoursesId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -118,14 +115,14 @@ namespace EmployeeManagment.Migrations
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CoursesId");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -194,41 +191,29 @@ namespace EmployeeManagment.Migrations
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("systemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
+                    b.HasKey("EmployeeId");
 
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("EmployeeManagment.models.Employment", b =>
+            modelBuilder.Entity("EmployeeManagment.models.EmployeeCompany", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.HasKey("CompanyId", "EmployeeId");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasIndex("EmployeeId");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("StudentId", "CompanyId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Employments");
+                    b.ToTable("EmployeeCompany");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Guarantor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("GuarantorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -242,8 +227,8 @@ namespace EmployeeManagment.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("GuarantId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("HomePhone")
                         .HasColumnType("nvarchar(max)");
@@ -260,19 +245,16 @@ namespace EmployeeManagment.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("studentId")
-                        .HasColumnType("int");
+                    b.HasKey("GuarantorId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("studentId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Guarantors");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Payment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PaymentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -280,43 +262,46 @@ namespace EmployeeManagment.Migrations
                     b.Property<double>("AmouontPaid")
                         .HasColumnType("float");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                    b.HasKey("PaymentId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.ProgramCourses", b =>
                 {
-                    b.Property<int>("AcademyProgramId")
+                    b.Property<int?>("AcademyProgramId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
+                    b.Property<int?>("CoursesId")
                         .HasColumnType("int");
 
-                    b.HasKey("AcademyProgramId", "CourseId");
+                    b.HasKey("AcademyProgramId", "CoursesId");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("CoursesId");
 
                     b.ToTable("ProgramCourses");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Project", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProjectId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -327,22 +312,16 @@ namespace EmployeeManagment.Migrations
                     b.Property<int>("Project_Status")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
+                    b.HasKey("ProjectId");
 
-                    b.Property<int>("Student_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Salary", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("SalaryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -350,13 +329,7 @@ namespace EmployeeManagment.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("EmploymentCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmploymentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmploymentStudentId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<string>("PayDay")
@@ -365,19 +338,19 @@ namespace EmployeeManagment.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("SalaryId");
 
-                    b.HasIndex("EmploymentStudentId", "EmploymentCompanyId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Salaries");
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.StudentInBatch", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BatchId")
+                    b.Property<int>("BatchesId")
                         .HasColumnType("int");
 
                     b.Property<int>("StdGrade")
@@ -386,9 +359,9 @@ namespace EmployeeManagment.Migrations
                     b.Property<int>("StdStatus")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentId", "BatchId");
+                    b.HasKey("EmployeeId", "BatchesId");
 
-                    b.HasIndex("BatchId");
+                    b.HasIndex("BatchesId");
 
                     b.ToTable("StudentsInBatches");
                 });
@@ -598,17 +571,17 @@ namespace EmployeeManagment.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EmployeeManagment.models.Employment", b =>
+            modelBuilder.Entity("EmployeeManagment.models.EmployeeCompany", b =>
                 {
                     b.HasOne("EmployeeManagment.models.Company", "Company")
-                        .WithMany("Employments")
+                        .WithMany("EmployeeCompany")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeManagment.models.Employee", "Student")
-                        .WithMany("Employments")
-                        .HasForeignKey("StudentId")
+                    b.HasOne("EmployeeManagment.models.Employee", "Employee")
+                        .WithMany("EmployeeCompany")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -617,16 +590,16 @@ namespace EmployeeManagment.Migrations
                 {
                     b.HasOne("EmployeeManagment.models.Employee", "Student")
                         .WithMany("Guarantors")
-                        .HasForeignKey("studentId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Payment", b =>
                 {
-                    b.HasOne("EmployeeManagment.models.Employee", "student")
+                    b.HasOne("EmployeeManagment.models.Employee", "Student")
                         .WithMany("Payments")
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -641,7 +614,7 @@ namespace EmployeeManagment.Migrations
 
                     b.HasOne("EmployeeManagment.models.Courses", "Course")
                         .WithMany("Programmes")
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -650,14 +623,16 @@ namespace EmployeeManagment.Migrations
                 {
                     b.HasOne("EmployeeManagment.models.Employee", "Student")
                         .WithMany("Projects")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeManagment.models.Salary", b =>
                 {
-                    b.HasOne("EmployeeManagment.models.Employment", null)
+                    b.HasOne("EmployeeManagment.models.Employee", null)
                         .WithMany("Salaries")
-                        .HasForeignKey("EmploymentStudentId", "EmploymentCompanyId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -665,14 +640,14 @@ namespace EmployeeManagment.Migrations
             modelBuilder.Entity("EmployeeManagment.models.StudentInBatch", b =>
                 {
                     b.HasOne("EmployeeManagment.models.Batches", "Batch")
-                        .WithMany("StudentsIn")
-                        .HasForeignKey("BatchId")
+                        .WithMany()
+                        .HasForeignKey("BatchesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EmployeeManagment.models.Employee", "Student")
                         .WithMany("BatchesIn")
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
