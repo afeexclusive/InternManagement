@@ -40,7 +40,7 @@ namespace EmployeeManagment
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlSerializerFormatters();
 
-            ////services.AddTransient<SampleUserRoleData>();
+            services.AddTransient<SampleUserRoleData>();
             services.AddScoped<IEmployeeReprository,  SQLEmployeeRepository>();
             services.AddScoped<IGuarantorRepo, SQLEmployeeRepository>();
             services.AddScoped<IManageEmployment, SQLEmployeeRepository>();
