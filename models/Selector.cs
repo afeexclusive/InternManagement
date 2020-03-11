@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,7 +34,9 @@ namespace EmployeeManagment.models
             Graphics,
             FrontEnd,
             FullStackWeb,
-            FullStackMobile
+            FullStackMobile,
+            WebDesign,
+            UI_UX
         }
 
         public enum CourseLevel
@@ -50,16 +53,27 @@ namespace EmployeeManagment.models
             C_Sharp,
             AspNet,
             Xamarin,
-            Js
+            Angular,
+            PhotoShop,
+            Adobe_Illustrator,
+            JavaScript,
+            React
         }
 
+        
         public enum Batch
         {
+            [Display(Name ="Batch A")]
             Batch_A,
+            [Display(Name = "Batch B")]
             Batch_B,
+            [Display(Name = "Batch C")]
             Batch_C,
+            [Display(Name = "Batch D")]
             Batch_D,
+            [Display(Name = "Batch E")]
             Batch_E,
+            [Display(Name = "Batch F")]
             Batch_F
         }
 
@@ -80,38 +94,25 @@ namespace EmployeeManagment.models
 
         public enum BatchYear
         {
-            Year2010,
-            Year2011,
-            Year2012,
-            Year2013,
-            Year2014,
+            [Display(Name = "2015")]
             Year2015,
+            [Display(Name = "2016")]
             Year2016,
+            [Display(Name = "2017")]
             Year2017,
+            [Display(Name = "2018")]
             Year2018,
+            [Display(Name = "2019")]
             Year2019,
+            [Display(Name = "2020")]
             Year2020,
+            [Display(Name = "2021")]
             Year2021,
+            [Display(Name = "2022")]
             Year2022,
-            Year2023,
-            Year2024,
-            Year2025,
-            Year2026,
-            Year2027,
-            Year2028,
-            Year2029,
-            Year2030,
-            Year2031,
-            Year2032,
-            Year2033,
-            Year2034,
-            Year2035,
-            Year2036,
-            Year2037,
-            Year2038,
-            Year2039,
-            Year2040
-
+            [Display(Name = "2023")]
+            Year2023
+            
         }
 
         public enum Nationality

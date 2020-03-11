@@ -5,26 +5,14 @@
     ViewBag.Title = Model.PageTitle ;
     string FullName = Model.employee.FirstName + " " + Model.employee.LastName;
     var photopath = "~/img/" + (Model.employee.Photo ?? "noimage.jpg");
+    int count = 0;
 }
     
 <header id="header">
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard <small>Manage Employee</small></h1>
-            </div>
-            <div class="col-md-2">
-                <div class="dropdown create">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Create Content
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a type="button" href="" data-toggle="modal" data-target="#addPage">Add Employee</a></li>
-                        <li><a href="#">Add More Details</a></li>
-                        @*<li><a href="#">Add User</a></li>*@
-                    </ul>
-                </div>
+                <a asp-action="index"> <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard <small>List of Devs</small></h1></a>
             </div>
         </div>
     </div>
@@ -33,7 +21,7 @@
 <section id="breadcrumb">
     <div class="container">
         <ol class="breadcrumb">
-            <li class="active">Dashboard</li>
+            <li class="active">Developers Details</li>
         </ol>
     </div>
 </section>
@@ -48,9 +36,9 @@
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
                         </a>
 
-                        <a href="pages.html" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Employee <span class="badge"> 4 </span></a>
-                        <a href="posts.html" class="list-group-item"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Pages <span class="badge">2</span></a>
-                        <a href="users.html" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users <span class="badge">203</span></a>
+                        <a href="pages.html" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Payments <span class="badge"> @Model.Payment.Count() </span></a>
+                        <a href="posts.html" class="list-group-item"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Guarantors <span class="badge"> @Model.Guarantor.Count() </span></a>
+                        <a href="users.html" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Balance <span class="badge">@Model.Balance</span></a>
                     </div>
 
                     <div class="well">
@@ -69,63 +57,100 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <!-- Website Overview -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading main-color-bg">
-                            <h3 class="panel-title">Website Overview</h3>
-                        </div>
-                        <div class="panel-body">
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="well card">
-                                        <h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span>34 </h2>
-                                        <h4>Users</h4>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="well dash-box">
-                                        <h2><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 2</h2>
-                                        <h4>Pages</h4>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="well dash-box">
-                                        <h2><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 33</h2>
-                                        <h4>Posts</h4>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="well dash-box">
-                                        <h2><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 12,334</h2>
-                                        <h4>Visitors</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div>
                         <div class="panel panel-default">
-                            <div class="panel-heading main-color-bg">
-                                <h3 class="panel-title">Employee Details</h3>
-                            </div>
+
                             <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12 bg-danger justify-content-center">
+                                <div class="col-sm-12">
+                                    
                                         <div class="card">
-                                            <div class="card-header">
-                                                <h1 class="text-center"> Student Name: @FullName </h1>
-                                                <h3 class="text-center">@Model.PageTitle</h3>
-                                            </div>
+                                            <div class="card-info">
+                                                <div class="card-header">
+                                                    <h1 class="text-center"> Student Name: @FullName </h1>
+                                                    <h3 class="text-center">@Model.PageTitle</h3>
+                                                </div>
+                                             </div>
+                                        </div>
+                                    <br />
+                                    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                                <div class="hidden-xs">Dev Details</div>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+                                                <div class="hidden-xs">Payments</div>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                                                <div class="hidden-xs">Guarantor</div>
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                            <div class="card-body text-center">
-                                                <img class="card-img-top imageThumbnail" src="@photopath" asp-append-version="true" />
-                                                <h4> Employee ID: @Model.employee.EmployeeId </h4>
-                                                <a href="#moredetails" class="btn btn-outline-primary">More Details</a>
-                                            </div>
+                                    <div class="well">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="tab1">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-12">
+                                                        <img class="card-img-top imageThumbnail img-thumbnail" src="@photopath" asp-append-version="true" />
+                                                        <h4 style="font-size:25px"> Student ID: @Model.employee.EmployeeId </h4>
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-12">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item"> <span style="font-size:20px">Email:</span> <span style="font-size:15px">@Model.employee.Email</span> </li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Batch:</span> <span style="font-size:15px">@Model.employee.AdmissionBatch</span> </li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Adminssion Type:</span> <span style="font-size:15px">@Model.employee.AdmissionType</span> </li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Gender:</span> <span style="font-size:15px">@Model.employee.Gender</span></li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Marital Status:</span > <span style="font-size:15px">@Model.employee.MaritalStatus</span></li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Phone No:</span> <span style="font-size:15px">@Model.employee.PhoneNumber</span></li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Status:</span>  <span style="font-size:15px">@Model.employee.Status</span> </li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Nationality:</span> <span style="font-size:15px">@Model.employee.Nationalty</span> </li>
+                                                            <li class="list-group-item"> <span style="font-size:20px">Identification:</span> <span style="font-size:15px">@Model.employee.Identification</span> </li>
+                                                            <li class="list-group-item"> <span style="font-size:20px"> Health:</span> <span style="font-size:15px">@Model.employee.HealthCondition</span></li>
+                                                            <li class="list-group-item"> <span style="font-size:20px"> Date of Birth:</span> <span style="font-size:15px">@Model.employee.DateOfBirth</span> </li>
+                                                        </ul>
+                                                        <div class="card-footer text-center">
+                                                            <a asp-controller="home" asp-action="edit" asp-route-id="@Model.employee.EmployeeId" class="btn btn-primary">Edit</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                            <div class="row">
+                                                <div class="card-footer text-center">
+                                                    <a asp-controller="home" asp-action="index" class="btn btn-dark">Back</a>
+                                                </div>
+
+                                            </div>
+                                            <div class="tab-pane fade in" id="tab2">
+                                                <h3>Balance: <b>@Model.Balance</b></h3>
+                                                <table class="table table-striped table-hover p-2" id="dataTable" style="font-size:20px">
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>Details</th>
+
+                                                    </tr>
+                                                    @foreach (var payme in Model.Payment)
+                                                    {
+                                                        count++;
+                                                        <tr>
+                                                            <td> @count</td>
+                                                            <td> @payme.PaymentMethod</td>
+                                                            <td> @payme.AmouontPaid</td>
+                                                            <td> @payme.PaymentDate</td>
+                                                        </tr>
+                                                    }
+                                                    <tr></tr>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade in" id="tab3">
                                                 <table class="table table-striped table-hover p-2" id="dataTable">
                                                     <tr>
                                                         <th>Name</th>
@@ -140,68 +165,22 @@
                                                         <tr>
                                                             <td> @guarant.Name</td>
                                                             <td> @guarant.Email</td>
-                                                            <td> @guarant.HomePhone | @guarant.OfficePhone</td>
-                                                            @*<td>
-                            <a asp-controller="Guarantor" asp-action="details" asp-route-id="@guarant.Id" class=" text-center m-1 glyphicon glyphicon-eye-close"></a>
-                            <a type="button" data-target=".deleteGuarant-@guarant.Id" data-toggle="modal" class=" text-center m-1 glyphicon glyphicon-remove "></a>
-                            <a asp-controller="guarantor" asp-action="edit" asp-route-id="@guarant.Id" class=" text-center m-1 glyphicon glyphicon-pencil "></a>
-                            <a asp-controller="guarantor" asp-action="create" asp-route-id="@guarant.Id" class="text-center m-1 glyphicon glyphicon-plus-sign"> </a>
-                        </td>*@
-                                                        </tr>
-
-
-                                                    }
-
-                                                </table>
-
-                                            </div>
-
-                                            <div class="row">
-                                                <table class="table table-striped table-hover p-2" id="dataTable">
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Phone</th>
-                                                        <th>Details</th>
-
-                                                    </tr>
-                                                    @foreach (var payme in Model.Payment)
-                                                    {
-                                                        <tr>
-                                                            <td> @payme.PaymentId</td>
-                                                            <td> @payme.PaymentMethod</td>
-                                                            <td> @payme.AmouontPaid</td>
-                                                            <td> @payme.PaymentDate</td>
+                                                            <td> @guarant.HomePhone</td>
+                                                            <td> @guarant.OfficePhone </td>
 
                                                         </tr>
                                                     }
 
                                                 </table>
-                                                <div> @Model.Balance</div>
-                                            </div>
-
-                                            <div id="moredetails">
-                                                <h4> Email: @Model.employee.Email </h4>
-                                                <h4> Batch: @Model.employee.AdmissionBatch </h4>
-                                                <h4> Adminssion Type: @Model.employee.AdmissionType </h4>
-                                                <h4> Gender: @Model.employee.Gender</h4>
-                                                <h4> Marital Status: @Model.employee.MaritalStatus</h4>
-                                                <h4> Phone No: @Model.employee.PhoneNumber</h4>
-                                                <h4> Status: @Model.employee.Status</h4>
-                                                <h4> Nationality: @Model.employee.Nationalty</h4>
-                                                <h4> Identification: @Model.employee.Identification</h4>
-                                                <h4> Health: @Model.employee.HealthCondition</h4>
-                                                <h4> Date of Birth: @Model.employee.DateOfBirth</h4>
-                                            </div>
-
-                                            <div class="card-footer text-center">
-                                                <a asp-controller="home" asp-action="index" class="btn btn-dark">Back</a>
-                                                <a asp-controller="home" asp-action="edit" asp-route-id="@Model.employee.EmployeeId" class="btn btn-primary">Edit</a>
-                                                <a asp-controller="guarantor" asp-action="create" asp-route-id="@Model.employee.EmployeeId" class="btn btn-primary">Add Guarantor</a>
+                                                <div class="card-footer text-center">
+                                                    <a asp-controller="guarantor" asp-action="create" asp-route-id="@Model.employee.EmployeeId" class="btn btn-primary">Add Guarantor</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -209,7 +188,11 @@
             </div>
         </div>
     </div>
+
+    
 </section>
+
+
 
 @section Scripts{
     <script src="~/js/CustomScript.js"></script>

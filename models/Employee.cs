@@ -59,7 +59,7 @@ namespace EmployeeManagment.models
         public List<Guarantor> Guarantors { get; set; }
         public List<Payment> Payments { get; set; }
         public List<Salary> Salaries { get; set; }
-        public List<EmployeeCompany> EmployeeCompany { get; set; }
+        
 
     }
 }

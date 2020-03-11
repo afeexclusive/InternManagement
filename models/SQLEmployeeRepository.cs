@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagment.models
 {
-    public class SQLEmployeeRepository : IEmployeeReprository, IGuarantorRepo, IManageEmployment, IPayment
+    public class SQLEmployeeRepository : IEmployeeReprository, IGuarantorRepo, IManageEmployment, IPayment, IProgrammes
     {
         private readonly AppDbContext context;
 
@@ -118,29 +118,29 @@ namespace EmployeeManagment.models
             return company;
         }
 
-        public EmployeeCompany AddEmployment(EmployeeCompany employment)
+        public Employement AddEmployment(Employement employment)
         {
-            context.EmployeeCompany.Add(employment);
+            context.Employements.Add(employment);
             context.SaveChanges();
             return employment;
         }
 
-        public EmployeeCompany UpdateEmployment(EmployeeCompany employment)
+        public Employement UpdateEmployment(Employement employment)
         {
-            var employmentChanges = context.EmployeeCompany.Attach(employment);
+            var employmentChanges = context.Employements.Attach(employment);
             employmentChanges.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             context.SaveChanges();
             return employment;
         }
 
-        public IEnumerable<EmployeeCompany> AllEmployments()
+        public IEnumerable<Employement> AllEmployments()
         {
-            return context.EmployeeCompany;
+            return context.Employements;
         }
 
-        public IEnumerable<EmployeeCompany> StudentEmployment(int Id)
+        public IEnumerable<Employement> StudentEmployment(int Id)
         {
-            return context.EmployeeCompany.Where(s => s.EmployeeId == Id);
+            return context.Employements.Where(s => s.EmployeeId == Id);
         }
 
         public Salary AddSalary(Salary salary)
@@ -191,6 +191,163 @@ namespace EmployeeManagment.models
             }
             return payment;
         }
+
+
+        //----------------------------------------- Programmes and Courses-----------------------------
+
+        public IEnumerable<AcademyProgram> GetSpecifiedProgrammes(int Id)
+        {
+            return context.AcademyPrograms.Where(p => p.AcademyProgramId == Id);
+        }
+
+        public IEnumerable<AcademyProgram> GetProgrammes()
+        {
+            return context.AcademyPrograms;
+        }
+
+        public AcademyProgram GetAcademyProgram(int id)
+        {
+            return context.AcademyPrograms.Find(id);
+        }
+
+        public AcademyProgram AddProgramme(AcademyProgram academyProgram)
+        {
+            context.AcademyPrograms.Add(academyProgram);
+            context.SaveChanges();
+            return academyProgram;
+        }
+
+        public AcademyProgram UpdateProgramme(AcademyProgram academyProgram)
+        {
+            var newAcadaProg = context.AcademyPrograms.Attach(academyProgram);
+            newAcadaProg.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+            return academyProgram;
+        }
+
+        public AcademyProgram DeleteProgramme(int id)
+        {
+            AcademyProgram academyProg = context.AcademyPrograms.Find(id);
+            if (academyProg != null)
+            {
+                context.AcademyPrograms.Remove(academyProg);
+                context.SaveChanges();
+            }
+            return academyProg;
+        }
+
+        public IEnumerable<Courses> GetSpecifiedCourses(int Id)
+        {
+            return context.Courses.Where(c => c.CoursesId == Id);
+        }
+
+        public IEnumerable<Courses> GetCourses()
+        {
+            return context.Courses;
+        }
+
+        public Courses AddCourse(Courses courses)
+        {
+            context.Courses.Add(courses);
+            context.SaveChanges();
+            return courses;
+        }
+
+        public Courses UpdateCourse(Courses courses)
+        {
+            var newCourse = context.Courses.Attach(courses);
+            newCourse.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+            return courses;
+        }
+
+        public Courses DeleteCourses(int id)
+        {
+            Courses courses = context.Courses.Find(id);
+            if (courses != null)
+            {
+                context.Courses.Remove(courses);
+                context.SaveChanges();
+            }
+            return courses;
+        }
+
+        public IEnumerable<ProgrammeCourse> GetListOfProgram(int id)
+        {
+            return context.ProgramAndCourses.Where(pc => pc.CoursesId == id);
+        }
+
+        public IEnumerable<ProgrammeCourse> GetListOfCourses(int id)
+        {
+            return context.ProgramAndCourses.Where(pc => pc.AcademyProgramId == id);
+        }
+
+        public IEnumerable<ProgrammeCourse> GetProgCourses()
+        {
+            return context.ProgramAndCourses;
+        }
+        public ProgrammeCourse AddProgCourses(ProgrammeCourse progCourse)
+        {
+            context.ProgramAndCourses.Add(progCourse);
+            context.SaveChanges();
+            return progCourse;
+        }
+
+
+        //----------------------------Batches--------------------------
+        public Batches AddBatch(Batches batches)
+        {
+            context.Batches.Add(batches);
+            context.SaveChanges();
+            return batches;
+        }
+
+        public Batches GetABatch(int id)
+        {
+            return context.Batches.Find(id);
+        }
+
+        public IEnumerable<Batches> GetABatch()
+        {
+            return context.Batches;
+        }
+
+        public Batches UpdateBatch(Batches batches)
+        {
+            var newBatch = context.Batches.Attach(batches);
+            newBatch.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+            return batches;
+        }
+
+        public Batches DeleteBatch(int id)
+        {
+            Batches batches = context.Batches.Find(id);
+            context.Remove(batches);
+            context.SaveChanges();
+            return batches;
+        }
+
+
+        //----------------------------Student In Batches--------------------------
+
+        public StudentInBatch AssignStudentToBatch(StudentInBatch SinB)
+        {
+            context.StudentsInBatches.Add(SinB);
+            context.SaveChanges();
+            return SinB;
+        }
+
+        public StudentInBatch GetOneStudentInBatch(int id)
+        {
+            return context.StudentsInBatches.Find(id);
+        }
+
+        public IEnumerable<StudentInBatch> GetAllStudentInBatch()
+        {
+            return context.StudentsInBatches;
+        }
+
     }
 }
 

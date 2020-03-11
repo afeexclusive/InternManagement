@@ -10,11 +10,13 @@
     <environment include="Development">
         <link href="~/mystyle/css/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/style.css" rel="stylesheet" />
+        @*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
     </environment>
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/mystyle/js/bootstrap.min.js"></script>
+    <script src="~/mystyle/js/BsMultiSelect.min.js"></script>
 </head>
 <body>
 
@@ -49,8 +51,8 @@
                         @*<li><a asp-controller="account" asp-action="register">Add Users</a></li>*@
                     }
 
-                    <li><a href="posts.html">Interns</a></li>
-                    <li><a href="users.html">Devs</a></li>
+                    <li><a asp-controller="programme" asp-action="listprogram">Programs</a></li>
+                    <li><a asp-controller="studentbatch" asp-action="listbatch">Batches</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (signInManager.IsSignedIn(User))

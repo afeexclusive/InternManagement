@@ -34,7 +34,7 @@ namespace EmployeeManagment
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("StudentDBConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddMvc(options => { var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
@@ -44,6 +44,8 @@ namespace EmployeeManagment
             services.AddScoped<IEmployeeReprository,  SQLEmployeeRepository>();
             services.AddScoped<IGuarantorRepo, SQLEmployeeRepository>();
             services.AddScoped<IManageEmployment, SQLEmployeeRepository>();
+            services.AddScoped<IPayment, SQLEmployeeRepository>();
+            services.AddScoped<IProgrammes, SQLEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

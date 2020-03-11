@@ -12,9 +12,9 @@
         <div class="align-content-center">
             <div asp-validation-summary="All" class="text-danger"></div>
 
-            <form enctype="multipart/form-data" asp-controller="Payment" asp-action="CreatePayment" method="post" class="mt-3 mx-auto col-sm-4 p-1">
+            <form enctype="multipart/form-data" asp-controller="payment" asp-action="createpayment" method="post" class="mt-3 mx-auto col-sm-4 p-1">
 
-                <input asp-for="EmployeeId" value="@Model.EmployeeId" hidden />
+                <input asp-for="EmployeeId" value="@Model.EmployeeId"/>
 
                 <div class="form-group row">
                     <label asp-for="StudentName" class="col-sm-3 col-form-label"> @Model.StudentName </label>

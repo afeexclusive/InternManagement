@@ -15,7 +15,7 @@
                     <label asp-for="SelectedCompany" class="col-sm-3 col-form-label"></label>
 
                     <div class="col-sm-8">
-                        @Html.DropDownList("SelectedCompany", new SelectList(Model.companies.Select(x => new { Value = x.CompanyId, Text = x.CompanyName }), "Value", "Text"));
+                        @Html.DropDownList("SelectedCompany", new SelectList(Model.companies.Select(x => new { Value = x.CompanyId, Text = x.CompanyName }), "Value", "Text"), new { @class = "form-control" });
                         @Html.ValidationMessageFor(x => x.SelectedCompany, "Select an option", new { @class = "text-danger" })
 
                         <span asp-validation-for="SelectedCompany" class="text-danger"></span> 
@@ -25,7 +25,7 @@
                 <div class="form-group row">
                     <label asp-for="SelectedStudent" class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-8">
-                        @Html.DropDownList("SelectedStudent", new SelectList(Model.students.Select(x => new { Value = x.EmployeeId, Text = x.LastName }), "Value", "Text"));
+                        @Html.DropDownList("SelectedStudent", new SelectList(Model.students.Select(x => new { Value = x.EmployeeId, Text = x.LastName }), "Value", "Text"), new { @class = "form-control" });
                         @Html.ValidationMessageFor(x => x.SelectedStudent, "Select an option", new { @class = "text-danger" })
                         <span asp-validation-for="SelectedStudent" class="text-danger"></span>
 

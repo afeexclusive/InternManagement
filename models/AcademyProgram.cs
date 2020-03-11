@@ -15,7 +15,7 @@ namespace EmployeeManagment.models
         public ProgrammeNames ProgramName { get; set; }
         public List<Batches> Batch { get; set; }
         public ProgramDuration Duration { get; set; }
-        public List<ProgramCourses> ProgrammeCourses { get; set; }
+       
 
 
     }

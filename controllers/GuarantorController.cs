@@ -96,6 +96,7 @@ namespace EmployeeManagment.controllers
                     Name = model.Name,
                     Email = model.Email,
                     HomePhone = model.HomePhone,
+                     
                     //Photo = uniqueFileName,
                     OfficePhone = model.OfficePhone,
                     CompanyName = model.CompanyName,

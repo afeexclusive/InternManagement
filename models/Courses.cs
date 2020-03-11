@@ -12,6 +12,5 @@ namespace EmployeeManagment.models
         public CourseName Course_Name { get; set; }
         public CourseLevel Level { get; set; }
         public double Cost { get; set; }
-        public List<ProgramCourses> Programmes { get; set; }
     }
 }

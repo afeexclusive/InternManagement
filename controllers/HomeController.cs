@@ -22,13 +22,15 @@ namespace EmployeeManagment.controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly IGuarantorRepo _guarantor;
         private readonly IPayment _payment;
+        private readonly IManageEmployment _employment;
 
         public HomeController(IEmployeeReprository employeeReprository,
                                 IWebHostEnvironment hostingEnvironment,
                                 RoleManager<IdentityRole> roleManager,
                                 UserManager<IdentityUser> userManager,
                                 IGuarantorRepo guarantor,
-                                IPayment payment)
+                                IPayment payment,
+                                IManageEmployment employment)
         {
             _employeeReprository = employeeReprository;
             this.hostingEnvironment = hostingEnvironment;
@@ -36,6 +38,7 @@ namespace EmployeeManagment.controllers
             this.userManager = userManager;
             this._guarantor = guarantor;
             this._payment = payment;
+            this._employment = employment;
         }
 
         [Route("")]
@@ -46,12 +49,14 @@ namespace EmployeeManagment.controllers
         {
             var model = _employeeReprository.GetEmployees();
             var appUsers = userManager.Users;
+            var appCompany = _employment.GetCompanies();
             HomeIndexViewModel homeIndexViewModel = new HomeIndexViewModel()
             {
                 Student = model.ToList(),
                 StudentNo = model.Count(),
                 UserNo = appUsers.Count(),
-                VisitorNo = model.Count() + appUsers.Count()
+                VisitorNo = model.Count() + appUsers.Count(),
+                CompanyNo = appCompany.Count()
 
 
             };
@@ -187,6 +192,7 @@ namespace EmployeeManagment.controllers
 
 
         [Route("Delete/{id?}")]
+        [Authorize]
         public IActionResult Delete(int Id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()

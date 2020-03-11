@@ -5145,11 +5145,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj",
+      "projectUniqueName": "C:\\Users\\afe kunle\\source\\repos\\InternManagement\\EmployeeManagment.csproj",
       "projectName": "EmployeeManagment",
-      "projectPath": "C:\\Users\\afe kunle\\EmployeeManagment\\EmployeeManagment.csproj",
+      "projectPath": "C:\\Users\\afe kunle\\source\\repos\\InternManagement\\EmployeeManagment.csproj",
       "packagesPath": "C:\\Users\\afe kunle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\afe kunle\\EmployeeManagment\\obj\\",
+      "outputPath": "C:\\Users\\afe kunle\\source\\repos\\InternManagement\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\afe kunle\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -13,7 +13,5 @@ namespace EmployeeManagment.models
         public string ContactName { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
-
-        public List<EmployeeCompany> EmployeeCompany { get; set; }
     }
 }

@@ -115,13 +115,12 @@ namespace EmployeeManagment.controllers
             {
 
 
-                EmployeeCompany Newemployment = new EmployeeCompany
+                Employement Newemployment = new Employement
                 {
-                    CompanyId = int.Parse(model.SelectedStudent),
-                    EmployeeId = int.Parse(model.SelectedCompany),
-                    //EmploId = new Guid(),
-                    //StartDate = model.StartDate,
-                    //EndDate = model.EndDate
+                    CompanyId = int.Parse(model.SelectedCompany),
+                    EmployeeId = int.Parse(model.SelectedStudent),
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate
                 };
                 _manageEmployment.AddEmployment(Newemployment);
 
@@ -130,7 +129,7 @@ namespace EmployeeManagment.controllers
                      Amount = model.Amount,
                      Role = model.Role,
                      PayDay = model.PayDay,
-                     EmployeeId = int.Parse(model.SelectedCompany)
+                     EmployeeId = int.Parse(model.SelectedStudent)
                 };
                 _manageEmployment.AddSalary(NewSalary);
                 return RedirectToAction("index", "home");

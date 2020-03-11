@@ -1,0 +1,108 @@
+﻿@model StudentBatchViewModel
+
+@{ 
+    ViewBag.Title = "Batch List";
+}
+<section>
+    <p></p>
+</section>
+    <section id="breadcrumb">
+        <div></div>
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="active">Student Batches</li>
+            </ol>
+        </div>
+    </section>
+<section id="main">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a class="list-group-item active main-color-bg">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+                        </a>
+
+                        <a href="#" data-toggle="modal" data-target="#addProg" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Create Program <span class="badge"> + </span></a>
+                        <a href="#" data-toggle="modal" data-target="#addCourse" class="list-group-item"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Create Courses <span class="badge"> + </span></a>
+                    </div>
+
+                    <div class="well">
+                        <h4>Disk Space Used</h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                60%
+                            </div>
+                        </div>
+                        <h4>Bandwidth Used </h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                40%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- Website Overview -->
+
+
+                    @foreach (var batch in Model.Batches)
+                    {
+                        <div class="panel panel-default" style="margin-bottom:20px">
+                            <div class="panel-heading main-color-bg">
+                                <h2 class="panel-title"><span>Batch Name: @batch.Name</span> <span style="margin-left:80%"><a class="btn btn-primary" data-toggle="modal" data-target="#add-@batch.BatchesId">Add Student</a></span></h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-10 offset-1">
+                                        @foreach (var student in Model.AssignedStudents)
+                                        {
+                                            if (student.BatchesId == batch.BatchesId)
+                                            {
+                                                var Students = Model.Students.Where(e => e.EmployeeId == student.EmployeeId);
+                                                foreach (var std in Students)
+                                                {
+                                                    <h3 style="font-size:18px">@std.LastName</h3>
+                                                }
+                                            }
+
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modals-->
+                        <div class="modal fade" id="add-@batch.BatchesId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="container">
+                                        <form class="mb-5" asp-controller="studentbatch" asp-action="AssignToBatch" method="post">
+                                            <input asp-for="BatchId" value="@batch.BatchesId" hidden />
+                                            <div class="col-md-6 my-3">
+                                                <select id="sel-bs" asp-for="StudentId" class="mdb-select md-form form-control" multiple="multiple" dashboardCodeBsMultiselect();>
+                                                    <option value="" disabled selected>Select all</option>
+                                                    @foreach (var stds in Model.Students)
+                                                    {
+                                                        <option value="@stds.EmployeeId" class="form-check"> @stds.LastName</option>
+                                                    }
+                                                </select>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-outline-dark">Add!</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+

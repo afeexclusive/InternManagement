@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagment.controllers
 {
+    [Route("[controller]/[action]")]
     public class PaymentController: Controller
     {
         private readonly IEmployeeReprository _student;
@@ -27,16 +28,22 @@ namespace EmployeeManagment.controllers
         public ViewResult CreatePayment(int id)
         {
             Employee std = _student.GetEmployee(id);
-            string Fullname = (std.FirstName) +" "+ (std.LastName);
+            string firstname = std.FirstName;
+            string lastname = std.LastName;
+            string Fullname = firstname +" "+ lastname;
             CreatePaymentViewModel pvm = new CreatePaymentViewModel()
             {
                 EmployeeId = id,
-                StudentName = Fullname
+                StudentName = Fullname,
+                AmouontPaid = 0.00,
+                PaymentDate = DateTime.Now,
+                PaymentMethod = Selector.PayMethod.BankTransfer
             };
 
             return View(pvm);
         }
 
+        [Route("{id}")]
         [HttpPost]
         public IActionResult CreatePayment(CreatePaymentViewModel model)
         {
@@ -48,11 +55,11 @@ namespace EmployeeManagment.controllers
                     EmployeeId = model.EmployeeId,
                     AmouontPaid = model.AmouontPaid,
                     PaymentMethod = model.PaymentMethod,
-                    PaymentDate = model.PaymentDate,
+                    PaymentDate = model.PaymentDate
                                   
                 };
                 _payment.AddPayment(newPayment);
-                return RedirectToAction("details", "index", new { id = newPayment.EmployeeId });
+                return RedirectToAction("index", "home");
 
             }
             return View();

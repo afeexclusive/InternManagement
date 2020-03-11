@@ -8,32 +8,33 @@ namespace EmployeeManagment.models
 {
     public static class ModelBuilderExtentions
     {
-        //public static void Seed(this ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Employee>().HasData(
-        //        new Employee 
-        //        {
-        //            Id = 85,
-        //            systemId = Guid.NewGuid(),
-        //            Name = "Mary Jane",
-        //            AdmissionBatch = Selector.Batch.Jul2016,
-        //            Email = "maryjane@me.com",
-        //            DateOfBirth = DateTime.Now,
-        //            Address = "dfdsdsf",
-        //            MaritalStatus = Selector.Marital.Single,
-        //            Gender = Selector.Gender.Female,
-        //            PhoneNumber = "576757677",
-        //            AdmissionType = Selector.AddmissionType.IncomeSharing,
-        //            HealthCondition = "No allegies",
-        //            Identification = "num",
-        //            Nationalty = Selector.Nationality.Indonesia,
-        //            NextOfKinAddress = "jkfdfdhj",
-        //            NextOfKinDocuments = "hjgfdjh",
-        //            NextOFKinName = "ayo",
-        //            NextOfKinNumber = "09087655",
-        //            Status = Selector.Status.InTraining
-        //        });
-        //}
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee
+                {
+                    EmployeeId = 20,
+                    FirstName = "Mary",
+                    LastName = "Jane",
+                    OtherName = "",
+                    AdmissionBatch = Selector.Batch.Batch_A,
+                    Email = "maryjane@me.com",
+                    DateOfBirth = DateTime.Now,
+                    Address = "dfdsdsf",
+                    MaritalStatus = Selector.Marital.Single,
+                    Gender = Selector.Gender.Female,
+                    PhoneNumber = "576757677",
+                    AdmissionType = Selector.AddmissionType.IncomeSharing,
+                    HealthCondition = "No allegies",
+                    Identification = "num",
+                    Nationalty = Selector.Nationality.Indonesia,
+                    NextOfKinAddress = "jkfdfdhj",
+                    NextOfKinDocuments = "hjgfdjh",
+                    NextOFKinName = "ayo",
+                    NextOfKinNumber = "09087655",
+                    Status = Selector.Status.InTraining
+                });
+        }
 
         //public static void SeedGua(this ModelBuilder modelBuilder)
         //{
@@ -65,6 +66,6 @@ namespace EmployeeManagment.models
         //            Batch = Selector.Batch.Jul2016
         //        });
         //}
-        
+
     }
 }

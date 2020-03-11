@@ -15,10 +15,10 @@ namespace EmployeeManagment.models
         Company UpdateCompany(Company company);
 
         //-------------- EMPLOYMENT-----------
-        EmployeeCompany AddEmployment(EmployeeCompany employment);
-        EmployeeCompany UpdateEmployment(EmployeeCompany employment);
-        IEnumerable<EmployeeCompany> AllEmployments();
-        IEnumerable<EmployeeCompany> StudentEmployment(int Id);
+        Employement AddEmployment(Employement employment);
+        Employement UpdateEmployment(Employement employment);
+        IEnumerable<Employement> AllEmployments();
+        IEnumerable<Employement> StudentEmployment(int Id);
 
         //---------------SALARY---------------
         Salary AddSalary(Salary salary);

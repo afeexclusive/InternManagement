@@ -13,5 +13,6 @@ namespace EmployeeManagment.ViewModels
         public int UserNo { get; set; }
         public int StudentNo { get; set; }
         public int VisitorNo { get; set; }
+        public int CompanyNo { get; set; }
     }
 }

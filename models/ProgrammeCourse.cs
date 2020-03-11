@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagment.models
 {
-    public class ProgramCourses
+    public class ProgrammeCourse
     {
+        public int ProgrammeCourseId { get; set; }
         public int? AcademyProgramId { get; set; }
-        public AcademyProgram Programme { get; set; }
+       
         public int? CoursesId { get; set; }
-        public Courses Course { get; set; }
+       
     }
 }

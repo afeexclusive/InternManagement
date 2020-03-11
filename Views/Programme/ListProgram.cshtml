@@ -1,0 +1,230 @@
+﻿@model ProgramCourseViewModel
+
+@{
+    ViewBag.Title = "Developers List";
+    
+}
+
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard <small>Manage Student</small></h1>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown create">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Create
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a asp-controller="home" asp-action="create" class="nav-link">Student</a></li>
+                        <li><a asp-controller="Employment" asp-action="CreateCompany" class="nav-link">Company</a></li>
+                        <li><a href="#">Add More Details</a></li>
+                        @*<li><a href="#">Add User</a></li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">User Dashboard</li>
+        </ol>
+    </div>
+</section>
+
+<section id="main">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a class="list-group-item active main-color-bg">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+                        </a>
+
+                        <a href="#" data-toggle="modal" data-target="#addProg" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Create Program <span class="badge"> + </span></a>
+                        <a href="#" data-toggle="modal" data-target="#addCourse" class="list-group-item"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Create Courses <span class="badge"> + </span></a>
+                    </div>
+
+                    <div class="well">
+                        <h4>Disk Space Used</h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                60%
+                            </div>
+                        </div>
+                        <h4>Bandwidth Used </h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                40%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- Website Overview -->
+                    @foreach (var program in Model.acadaprog)
+                    {
+                        
+                        <div class="panel panel-default" style="margin-bottom:20px">
+                            <div class="panel-heading main-color-bg">
+                                <h2 class="panel-title">@program.ProgramName <span style="margin-left:75%"><a asp-controller="studentbatch" asp-action="createbatch" asp-route-id="@program.AcademyProgramId" class="btn btn-warning">Assign Batch to this program</a></span></h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-10 offset-1">
+                                        @foreach (var item in Model.CourseInProg)
+                                        {
+                                            if (item.AcademyProgramId == program.AcademyProgramId)
+                                            {
+                                                var courese = Model.acadacourses.Where(e => e.CoursesId == item.CoursesId);
+                                                foreach (var cours in courese)
+                                                {
+                                                    <span class="label label-info" style="font-size:18px">@cours.Course_Name</span>
+                                                }
+                                            }
+
+                                        }
+
+                                    </div>
+                                    <a data-toggle="modal" data-target=".add-@program.AcademyProgramId" class="btn btn-primary">Add Courses</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade add-@program.AcademyProgramId" tabindex="-1" role="dialog" aria-labelledby="addCourse" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="container">
+                                        <form class="mb-5" asp-controller="programme" asp-action="AllocateCourses" method="post">
+                                            <input asp-for="AcadaProgId" value="@program.AcademyProgramId" hidden />
+                                            <div class="col-md-6 my-3">
+                                                <select id="sel-bs" asp-for="AcadaCourseId" class="mdb-select md-form form-control" multiple= "multiple" dashboardCodeBsMultiselect();>
+                                                    <option value="" disabled selected>Select all</option>
+                                                    @foreach (var course in Model.acadacourses)
+                                                    {
+                                                        <option value="@course.CoursesId" class="form-check" > @course.Course_Name</option>
+                                                    }
+                                                </select>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-outline-dark">Add!</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modals -->
+<!-- Add Page -->
+<div class="modal fade" id="addProg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-controller="programme" asp-action="CreateProgram" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Create Program</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label asp-for="ProgramName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-8">
+                            <select asp-for="ProgramName" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList < Selector.ProgrammeNames>();">
+                                <option>Please Select</option>
+                            </select>
+                            <span asp-validation-for="ProgramName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="Duration" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-8">
+                            <select asp-for="Duration" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList < Selector.ProgramDuration>();">
+                                <option>Please Select</option>
+                            </select>
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Cost" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="Cost" class="form-control" />
+                            <span asp-validation-for="Cost" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addCourse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form asp-action="createcourse" asp-controller="programme" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Create Course</h4>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Course_Name" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <select asp-for="Course_Name" class="custom-select mr-sm-2 form-control" asp-items="Html.GetEnumSelectList < Selector.CourseName>();">
+                            <option>Please Select</option>
+                        </select>
+                        <span asp-validation-for="Course_Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+               <div class="form-group row">
+                    <label asp-for="CourseCost" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-8">
+                        <input asp-for="CourseCost" class="form-control" />
+                        <span asp-validation-for="CourseCost" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+     </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+
+            $('#sel-bs').materialSelect({
+                defaultMaterialInput: true
+            });
+        })
+    </script>
+}
